@@ -1,0 +1,79 @@
+\documentclass[letter,8pt]{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\titleformat{\section}
+  {\normalfont\sffamily\Large\bfseries}
+  {\thesection}{1em}{}
+
+\begin{document}
+\title{Computer Science 685 Midterm}
+\author{Paul McKerley (G00616949)}
+\fontfamily{phv}
+\selectfont
+\frenchspacing
+
+\maketitle 
+
+\begin{enumerate} 
+
+\item If I understand the question correctly, it is to define the
+  forward kinematics of the point at the end of $L2$. Since this is
+  the position of the gripper, I will refer to it as $G$. I interpret
+  the diagram to mean that $L1$ is a fixed bar, which slides up and
+  down $y1$, causing $d1$ to vary. Also, $\theta_2$ can change,
+  causing $L2$, which is also fixed, to swing around.
+
+  So the position of $G$ in the second coordinate frame is simply how
+  far it is translated from the end of $L1$, which is
+
+\[
+    G_2 = 
+    \begin{bmatrix}
+        L2\\
+        0
+    \end{bmatrix} 
+\]
+
+  Now in the first coordinate frame, $G$ is rotated by $\theta_2$ and
+  translated by $L1$ on the $x$ axis and $d1$ on the $y$ axis. So
+
+  \[
+  G_1 = \begin{bmatrix}
+    L1\\
+    d1
+  \end{bmatrix} + R(\theta_2) \cdot     \begin{bmatrix}
+        L2\\
+        0
+    \end{bmatrix}  = \begin{bmatrix}
+    L1\\
+    d1
+  \end{bmatrix} + \begin{bmatrix}
+    L2 cos(\theta_2)\\
+    L2 sin(\theta_2)
+  \end{bmatrix} = \begin{bmatrix}
+    L1 + L2 cos(\theta_2)\\
+    d1 + L2 sin(\theta_2)
+  \end{bmatrix}
+  \]
+
+As mentioned above, the kinematic parameters are $L1$, $L2$, and
+implicitly the angles of $d1$ with respect to $x1$, and $L1$ with
+respect to to $d1$. The joint variables are $d1$ and $\theta_2$.
+
+\item 
+
+\item 
+
+\item 
+
+\end{enumerate}
+
+\end{document}
+\endinput
