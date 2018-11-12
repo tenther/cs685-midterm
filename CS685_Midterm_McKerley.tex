@@ -67,9 +67,36 @@ As mentioned above, the kinematic parameters are $L1$, $L2$, and
 implicitly the angles of $d1$ with respect to $x1$, and $L1$ with
 respect to to $d1$. The joint variables are $d1$ and $\theta_2$.
 
-\item 
+\item
+  \begin{enumerate}[label=\alph*)]
+    \item The function needs $U_r$ to be expanded to include repulsion from robot $R2$ in position $x_2$. So it would look something like\\
+      $U(x_1) = k_1||x_1 - x_g||^2 + k_2\frac{1}{||x_1 - x_o||^2} + k_3\frac{1}{||x_2 - x_1||^2}$\\
+      with the repulsion of the $R2$ possibly having a different constant $k_3$, since a moving obstacle might require speedier avoidance.
 
-\item 
+    \item The control function will be to figure out the forces applied to $R1$ at that position. 
+      We need to define distances of influence for the obstacle and the other robot, so, we will define $q_o$ and $q_2$
+      to be the minimum distances from the obstacle and other robot, respectively, before they have a repulsive effect.
+      \[
+      F(x_1) = -k_1 \cdot ( x_1 - x_g) -
+      \begin{cases}
+        (k_2(\frac{1}{x_1} - \frac{1}{x_o})), & \text{if} x=1 \\
+        0, & \text{otherwise}
+       \end{cases}
+      \]
+    \item The repulsive and attractive forces at a certain location can cancel each other out perfectly, so that 
+      the net force applied at that location is $0$; ie, the robot encounters a local mininum.
+      When this happens the robot could adopt a number of strategies. When if finds itself stuck, it could go on a 
+      random walk and hope to leave the local minimum. It could use a strategy like one of the Bug algorithms. 
+      For example, the Bug2 algorithm tells the robot that when it can't move, it should remember its bearing
+      to the goal, and circle around the obstacle until it hits that bearing line again, at which point it should
+      continue toward the goal.
+  \end{enumerate}
+  
+\item I'm assuming that the $d_x^2$ and $d_z^2$ variables are constant for a given run.
+  It seems that the variance of our state converges quickly to a stable value. As $d_x^2$ and $d_z^2$
+  approach zero, the point of stabalization becomes closer and closer to zero. I interpret this to mean
+  that as the variances in the perturbation and sensor reading becomes more and more accurate (ie, $d_x^2$ and $d_z^2$ approach zero),
+  then the robots estimate of its position likewise becomes more accurate.
 
 \item 
 
